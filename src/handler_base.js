@@ -8,7 +8,7 @@ import { RequestError } from './server';
  */
 export default class HandlerBase extends EventEmitter {
     constructor({
-        server, id, srcRequest, srcHead, srcResponse, trgParsed, upstreamProxyUrlParsed,
+        server, id, srcRequest, srcHead, srcResponse, trgParsed, upstreamProxyUrlParsed, headers,
     }) {
         super();
 
@@ -17,6 +17,7 @@ export default class HandlerBase extends EventEmitter {
         if (!srcRequest) throw new Error('The "srcRequest" option is required');
         if (!srcRequest.socket) throw new Error('"srcRequest.socket" cannot be null');
         if (!trgParsed.hostname) throw new Error('The "trgParsed.hostname" option is required');
+        if (!headers) headers = {}
 
         this.server = server;
         this.id = id;
@@ -37,6 +38,8 @@ export default class HandlerBase extends EventEmitter {
         this.isClosed = false;
 
         this.upstreamProxyUrlParsed = upstreamProxyUrlParsed;
+
+        this.headers = headers
 
         // Create ServerResponse for the client HTTP request if it doesn't exist
         // NOTE: This is undocumented API, it might break in the future

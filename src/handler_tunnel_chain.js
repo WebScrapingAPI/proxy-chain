@@ -19,14 +19,14 @@ export default class HandlerTunnelChain extends HandlerBase {
 
         this.targetHost = `${this.trgParsed.hostname}:${this.trgParsed.port}`;
 
+        Object.assign(this.headers, {Host: this.targetHost})
+
         const options = {
             method: 'CONNECT',
             hostname: this.upstreamProxyUrlParsed.hostname,
             port: this.upstreamProxyUrlParsed.port,
             path: this.targetHost,
-            headers: {
-                Host: this.targetHost,
-            },
+            headers: this.headers,
         };
 
         maybeAddProxyAuthorizationHeader(this.upstreamProxyUrlParsed, options.headers);
