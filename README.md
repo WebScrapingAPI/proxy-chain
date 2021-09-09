@@ -1,3 +1,6 @@
+# What is Proxy-Chain-Headers
+Proxy-Chain-Headers it's an extension of Proxy-Chain package (package for which you have the description below). This package only adds the headers option to the package. To install it using verdaccio you can follow the examples from netty: ```npm i --S --registry http://localhost:4873 proxy-chain-headers```, or just replace the localhost with either the staging or the production environment.
+
 # Programmable HTTP proxy server for Node.js
 
 [![npm version](https://badge.fury.io/js/proxy-chain.svg)](http://badge.fury.io/js/proxy-chain)
