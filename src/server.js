@@ -512,6 +512,20 @@ export class Server extends EventEmitter {
     }
 
     /**
+     * Closes all active connections.
+     * @returns {*}
+     */
+    closeConnections() {
+        this.log(null, 'Closing pending handlers');
+        let count = 0;
+        _.each(this.handlers, (handler) => {
+            count++;
+            handler.close();
+        });
+        this.log(null, `Destroyed ${count} pending handlers`);
+    }
+
+    /**
      * Closes the proxy server.
      * @param [closeConnections] If true, then all the pending connections from clients
      * to targets and upstream proxies will be forcibly aborted.
@@ -524,13 +538,7 @@ export class Server extends EventEmitter {
         }
 
         if (closeConnections) {
-            this.log(null, 'Closing pending handlers');
-            let count = 0;
-            _.each(this.handlers, (handler) => {
-                count++;
-                handler.close();
-            });
-            this.log(null, `Destroyed ${count} pending handlers`);
+            this.closeConnections();
         }
 
         if (this.server) {
