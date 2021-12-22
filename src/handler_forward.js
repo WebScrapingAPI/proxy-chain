@@ -18,7 +18,7 @@ export default class HandlerForward extends HandlerBase {
     run() {
         const reqOpts = this.trgParsed;
         reqOpts.method = this.srcRequest.method;
-        reqOpts.headers = {};
+        reqOpts.headers = this.headers;
 
         // TODO:
         //  - We should probably use a raw HTTP message via socket instead of http.request(),
